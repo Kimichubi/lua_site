@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 
 # Configuração para aceitar mais de uma imagem.
@@ -28,6 +29,11 @@ class FileFieldForm(forms.Form):
     file_field = MultipleFileField()
 
 
-class LoginForm(forms.Form):
-    email = forms.EmailField(label="E-mail")
-    password = forms.CharField(label="<PASSWORD>", widget=forms.PasswordInput)
+class LoginForm(AuthenticationForm):
+    username = forms.EmailField(label="E-mail", help_text="Insira seu e-mail")
+    password = forms.CharField(
+        label="Senha",
+        widget=forms.PasswordInput,
+        help_text="Insira sua senha",
+        strip=False
+    )

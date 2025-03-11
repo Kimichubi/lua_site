@@ -1,1 +1,147 @@
-<h1>Dashboard</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Painel de Controle Administrativo Lua D'Água - Gerenciamento de produtos e conteúdo">
+    <title>Dashboard Administrativo - Lua D'Água Purificadores</title>
+    <link rel="stylesheet" href="{% static 'admin/dashboard.css' %}">
+</head>
+<body>
+<nav class="main-nav">
+    <div class="nav-brand">
+        <h1 class="logo">LUA D’ÁGUA</h1>
+        <p class="subtitle">PAINEL ADMINISTRATIVO</p>
+    </div>
+    <a href="#" class="nav-logout">Sair</a>
+</nav>
+
+<main class="dashboard-container">
+    <header class="dashboard-header">
+        <h2 class="dashboard-title">Gerenciamento de Produtos</h2>
+        <a href="{% url 'register' %}" class="btn-primary">
+            Cadastrar Novo Produto
+            <svg aria-hidden="true" class="icon-plus" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+        </a>
+    </header>
+
+    <section class="products-grid">
+        {% for product in products %}
+            <article class="product-card">
+                <div class="product-image">
+                    {% if product.images.first %}
+                        <img src="{{ product.images.first.photo.url }}" alt="{{ product.name }}" loading="lazy">
+                    {% else %}
+                        <img src="{% static 'images/placeholder-product.jpg' %}" alt="Sem imagem disponível"
+                             loading="lazy">
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">{{ product.name }}</h3>
+                    <p class="product-price">R$ {{ product.price }}</p>
+                    <div class="product-actions">
+                        <a href="{% url 'edit' product_id=product.id %}" class="btn-edit">Editar</a>
+                        <button class="btn-delete"
+                                data-product-id="{{ product.id }}"
+                                data-product-name="{{ product.name }}">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+
+
+        <!-- Repetir para outros produtos -->
+    </section>
+</main>
+
+<footer class="dashboard-footer">
+    <p class="copyright">&copy; 2024 LA Software Solution. Todos os direitos reservados.</p>
+</footer>
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar Exclusão</h3>
+        <p id="modalMessage"></p>
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn">Cancelar</button>
+            <a id="confirmDelete" href="#" class="modal-btn confirm-btn">Confirmar</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+        const modal = document.getElementById('deleteModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const confirmDelete = document.getElementById('confirmDelete');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        let currentForm = null;
+
+        // Função para fechar o modal
+        const closeModal = () => {
+            modal.style.display = 'none';
+            if (currentForm) {
+                currentForm.remove();
+                currentForm = null;
+            }
+        };
+
+        // Abrir modal e configurar exclusão
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const productId = this.dataset.productId;
+                const productName = this.dataset.productName;
+
+                // Remove formulário anterior se existir
+                if (currentForm) {
+                    currentForm.remove();
+                }
+
+                // Cria novo formulário
+                currentForm = document.createElement('form');
+                currentForm.method = 'POST';
+                currentForm.action = "{% url 'delete_product' 0 %}".replace('0', productId);
+                currentForm.style.display = 'none';
+                currentForm.innerHTML = `{% csrf_token %}`;
+                document.body.appendChild(currentForm);
+
+                // Atualiza mensagem e exibe modal
+                modalMessage.textContent = `Tem certeza que deseja excluir o produto "${productName}"?`;
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Confirmar exclusão
+        confirmDelete.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (currentForm) {
+                currentForm.submit();
+            }
+        });
+
+        // Fechar modal
+        cancelBtn.addEventListener('click', closeModal);
+
+        // Fechar ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Fechar com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    });
+</script>
+</body>
+</html>

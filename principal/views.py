@@ -20,15 +20,3 @@ def product(request):
 
 def product_id(request, product_id):
     return render(request, "principal/product_id.html")
-
-
-def send(request):
-    product = Product()
-    product.name = "Giom"
-    product.price = 1000
-    product.description = "lorem ipsum dolor"
-    product.save()
-    context = {
-        "product": product,
-    }
-    return render(request, "principal/send.html", context)

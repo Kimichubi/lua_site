@@ -1,0 +1,178 @@
+/* style.css */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --font-primary: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.main-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.branding {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 2.5rem;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.auth-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+
+.login-panel {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.panel-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+
+}
+
+/* Adicionar estas regras ao CSS existente */
+
+.form-help-text {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.form-error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    padding: 0.3rem;
+    background-color: #f8d7da;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    margin-top: 0.5rem;
+}
+
+.login-form label {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.login-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #2980b9;
+}
+
+.captcha-section {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.captcha-placeholder {
+    background: #eef1f6;
+    padding: 1.5rem;
+    border-radius: 5px;
+    color: #666;
+    margin: 1rem 0;
+}
+
+.main-footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.credits, .copyright {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.company {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 2rem 1rem;
+        padding: 1rem;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+}

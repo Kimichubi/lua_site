@@ -25,17 +25,17 @@ urlpatterns = [
                   #    path('admin/', admin.site.urls),
 
                   # ADMIN
-                  path('admin/', admin_views.index, name='index'),
+                  path('admin/', admin_views.index, name='admin_index'),
                   path('admin/dashboard/', admin_views.dashboard, name='dashboard'),
                   path('admin/edit/<int:product_id>', admin_views.product_edit, name='edit'),
                   path('admin/register/', admin_views.FileFieldFormView.as_view(), name='register'),
+                  path('admin/products/delete/<int:product_id>/', admin_views.delete_product, name='delete_product'),
 
                   # PRINCIPAL
                   path('', principal_views.index, name='index'),
                   path('services/', principal_views.services, name='services'),
                   path('product/', principal_views.product, name='product'),
                   path('product/<int:product_id>', principal_views.product_id, name='product_id'),
-                  path('product/send', principal_views.send, name='send'),
 
                   # path("create/admin/", admin_views.create_admin, name="create_admin"),
 

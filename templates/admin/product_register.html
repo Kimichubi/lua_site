@@ -1,16 +1,115 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
-    <title>Cadastro de Produtos Lua</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cadastro de produtos - Painel Administrativo Lua D'Água Purificadores">
+    <title>Cadastro de Produtos - Lua D'Água</title>
+    <link rel="stylesheet" href="{% static 'admin/register.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Cadastro de Produtos Lua</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar</button>
-</form>
+<nav class="main-nav">
+    <div class="nav-brand">
+        <h1 class="logo">LUA D’ÁGUA</h1>
+        <p class="subtitle">PAINEL ADMINISTRATIVO</p>
+    </div>
+    <a href="{% url 'dashboard' %}" class="nav-link">Voltar ao Dashboard</a>
+</nav>
+
+<main class="form-container">
+    <div class="form-header">
+        <h1 class="form-title">Cadastro de Produtos</h1>
+        <p class="form-description">Preencha os campos abaixo para cadastrar um novo produto</p>
+    </div>
+
+    <form id="productForm" method="post" enctype="multipart/form-data" class="product-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_title">Título do Produto</label>
+            {{ form.title }}
+            <small class="form-help">Nome completo do produto</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_desc">Descrição</label>
+            {{ form.desc }}
+            <small class="form-help">Detalhes e características do produto</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_price">Preço</label>
+            <div class="price-input">
+                <span class="currency">R$</span>
+                {{ form.price }}
+            </div>
+        </div>
+
+        <div class="form-group file-upload">
+            <label for="id_file_field" class="upload-label">
+                <svg class="upload-icon" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                <span class="upload-text">Selecione as imagens</span>
+                {{ form.file_field }}
+            </label>
+            <div class="file-preview"></div>
+        </div>
+
+        <button type="submit" class="submit-btn" onclick="return confirmSubmission(event)">
+            Cadastrar Produto
+            <svg class="submit-icon" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        </button>
+    </form>
+</main>
+
+<!-- Modal de Confirmação -->
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <h3 class="modal-title">Confirmar Cadastro</h3>
+        <p class="modal-text">Tem certeza que deseja cadastrar este produto?</p>
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn" onclick="closeModal()">Cancelar</button>
+            <button class="modal-btn confirm-btn" onclick="submitForm()">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmSubmission(e) {
+        e.preventDefault();
+        document.getElementById('confirmationModal').style.display = 'flex';
+        return false;
+    }
+
+    function submitForm() {
+        document.getElementById('productForm').submit();
+    }
+
+    function closeModal() {
+        document.getElementById('confirmationModal').style.display = 'none';
+    }
+
+    // Preview de imagens selecionadas
+    document.getElementById('id_file_field').addEventListener('change', function (e) {
+        const preview = document.querySelector('.file-preview');
+        preview.innerHTML = '';
+
+        Array.from(e.target.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('preview-thumb');
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
 </body>
 </html>

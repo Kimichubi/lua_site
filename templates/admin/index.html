@@ -1,6 +1,57 @@
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel Administrativo Lua D'Água - Sistema de gerenciamento para publificadores">
+    <title>Painel Administrativo - Lua D'Água</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/index.css' %}">
+</head>
+<body>
+<header class="main-header">
+    <div class="branding">
+        <h1 class="logo">LUA D’ÁGUA</h1>
+        <p class="subtitle">PURIFICADORES</p>
+    </div>
+</header>
 
-    <button>Entrar</button>
-</form>
+<main class="auth-container">
+    <section class="login-panel">
+        <h2 class="panel-title">Painel Administrador</h2>
+        <form class="login-form" method="POST" action="{% url 'admin_index' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.help_text %}
+                    <small class="form-help-text">{{ form.username.help_text }}</small>
+                {% endif %}
+                {% if form.username.errors %}
+                    <div class="form-error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {% if form.non_field_errors %}
+                    <div class="form-error">{{ form.non_field_errors }}</div>
+                {% endif %}
+                {% if form.password.errors %}
+                    <div class="form-error">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="login-button">Acessar</button>
+        </form>
+    </section>
+</main>
+
+<footer class="main-footer">
+    <p class="credits">Desenvolvido por <span class="company">LA Software Solution</span></p>
+    <p class="copyright">Todos os direitos reservados a Luiz D’Água Puntificadora</p>
+</footer>
+</body>
+</html>

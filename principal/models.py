@@ -15,7 +15,7 @@ class Product(models.Model):
 
 class Image(models.Model):
     photo = models.ImageField(upload_to='product/images')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
 
     def __str__(self):
         return f"{self.photo}, {self.product_id}"

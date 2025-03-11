@@ -1,0 +1,294 @@
+/* register.css */
+:root {
+    --primary-color: #2A4365;
+    --secondary-color: #4299E1;
+    --accent-color: #48BB78;
+    --danger-color: #F56565;
+    --background-color: #F7FAFC;
+    --text-color: #2D3748;
+    --text-light: #718096;
+    --border-color: #CBD5E0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    min-height: 100vh;
+}
+
+.main-nav {
+    background: var(--primary-color);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+}
+
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.logo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.form-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-description {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.product-form {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input[type="text"],
+textarea,
+input[type="number"] {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.price-input {
+    position: relative;
+}
+
+.currency {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+#id_price {
+    padding-left: 3rem;
+}
+
+.file-upload {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.file-upload:hover {
+    border-color: var(--secondary-color);
+    background: rgba(66, 153, 225, 0.05);
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.upload-icon {
+    width: 40px;
+    height: 40px;
+    fill: currentColor;
+}
+
+.file-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.preview-thumb {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: var(--transition);
+}
+
+.submit-btn:hover {
+    background: #38A169;
+    transform: translateY(-1px);
+}
+
+.submit-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    width: 95%;
+    max-width: 450px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.modal-text {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.cancel-btn {
+    background: var(--text-light);
+    color: white;
+}
+
+.confirm-btn {
+    background: var(--accent-color);
+    color: white;
+}
+
+.confirm-btn:hover {
+    background: #38A169;
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .product-form {
+        padding: 1.5rem;
+    }
+
+    .form-title {
+        font-size: 1.75rem;
+    }
+}

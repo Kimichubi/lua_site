@@ -1,22 +1,39 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.hashers import check_password
+from django.utils import timezone
 
 
-# Create your models here.
+class AdminManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('O Email deve ser definido')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
-class Admin(models.Model):
-    email = models.EmailField(max_length=30, unique=True)
-    password = models.CharField(max_length=128)
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
 
-    def set_password(self, raw_password):
-        # Criptografa a senha antes de armazená-la
-        self.password = make_password(raw_password)
 
-    def check_password(self, raw_password):
-        # Verifica se a senha está correta
+class Admin(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField('endereço de email', unique=True, max_length=30)
+    is_staff = models.BooleanField('equipe', default=False)
+    is_active = models.BooleanField('ativo', default=True)
+    date_joined = models.DateTimeField('data de registro', default=timezone.now)
+    last_login = models.DateTimeField('último login', auto_now=True)
 
-        return check_password(raw_password, self.password)
+    objects = AdminManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
-        return f"{self.email}, {self.password}"
+        return self.email
+
+    class Meta:
+        verbose_name = 'Administrador'
+        verbose_name_plural = 'Administradores'

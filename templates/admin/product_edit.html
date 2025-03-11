@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página de edição de produtos - Lua D'Água Purificadores">
+    <title>Editar {{ product.name }} - Lua D'Água</title>
+    <link rel="stylesheet" href="{% static 'admin/edit.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="edit-nav" aria-label="Navegação principal">
+    <div class="nav-brand">
+        <h1 class="logo" aria-label="Logo Lua D'Água">LUA D’ÁGUA</h1>
+        <p class="subtitle">EDITAR PRODUTO</p>
+    </div>
+    <a href="{% url 'dashboard' %}" class="nav-link" aria-label="Voltar ao painel principal">
+        ← Voltar ao Dashboard
+    </a>
+</nav>
+
+<main class="edit-container" id="main-content">
+    <header class="form-header">
+        <h1 class="form-title" role="heading" aria-level="1">Editar {{ product.name }}</h1>
+        <p class="form-description">Atualize as informações do produto abaixo</p>
+    </header>
+
+    <form action="/admin/edit/{{ product.id }}" method="post" enctype="multipart/form-data" class="product-form"
+          aria-labelledby="main-content">
+        {% csrf_token %}
+
+        <!-- Seção de Dados Básicos -->
+        <fieldset class="form-section">
+            <legend class="section-title">Informações do Produto</legend>
+
+            <div class="form-group">
+                <label class="form-label" for="id_name">Nome do Produto *</label>
+                <input type="text" name="title" id="id_name"
+                       class="form-input"
+                       value="{{ product.name }}"
+                       required
+                       aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="id_desc">Descrição *</label>
+                <textarea name="desc" id="id_desc"
+                          class="form-input"
+                          rows="4"
+                          required
+                          aria-required="true">{{ product.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="id_price">Preço *</label>
+                <input type="number" name="price" id="id_price"
+                       class="form-input"
+                       step="0.01"
+                       value="{{ product.price }}"
+                       required
+                       aria-required="true">
+            </div>
+        </fieldset>
+
+        <!-- Seção de Imagens -->
+        <fieldset class="form-section">
+            <legend class="section-title">Gestão de Imagens</legend>
+
+            <div class="form-group">
+                <p class="form-label">Imagens Atuais</p>
+                <div class="current-images" role="list">
+                    {% for image in images %}
+                        <div class="image-card" role="listitem">
+                            <img src="{{ image.photo.url }}"
+                                 alt="Imagem do produto {{ product.name }}"
+                                 class="image-preview"
+                                 loading="lazy">
+
+                            <button type="button"
+                                    class="delete-btn"
+                                    data-image-id="{{ image.id }}"
+                                    aria-label="Excluir imagem">
+                                ×
+                            </button>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="file-upload" role="region" aria-labelledby="upload-label">
+                    <label id="upload-label" class="upload-label" for="id_new_images">
+                        <svg class="upload-icon" aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <span class="upload-text">Adicionar novas imagens</span>
+                        <input type="file"
+                               name="new_images"
+                               id="id_new_images"
+                               multiple
+                               accept="image/*"
+                               class="visually-hidden">
+                    </label>
+                    <div class="file-preview" role="list"></div>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Ações do Formulário -->
+        <div class="form-actions">
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="window.history.back()"
+                    aria-label="Cancelar edição">
+                Cancelar
+            </button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    aria-label="Salvar alterações">
+                Salvar Alterações
+            </button>
+        </div>
+    </form>
+</main>
+
+<script>
+    // JavaScript permanece o mesmo, mas com comentários acessíveis
+    document.getElementById('id_new_images').addEventListener('change', function (e) {
+        const preview = document.querySelector('.file-preview');
+        preview.innerHTML = '';
+
+        Array.from(e.target.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('preview-thumb');
+                img.setAttribute('role', 'listitem');
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const imageId = this.dataset.imageId;
+            const imageContainer = this.closest('.image-card');
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'delete_images';
+            input.value = imageId;
+            document.querySelector('form').appendChild(input);
+
+            imageContainer.style.opacity = '0.5';
+            this.setAttribute('disabled', 'true');
+            this.setAttribute('aria-disabled', 'true');
+        });
+    });
+</script>
+</body>
+</html>
