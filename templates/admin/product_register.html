@@ -1,0 +1,16 @@
+<!-- upload_imagens.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload de Múltiplas Imagens</title>
+</head>
+<body>
+<h1>Upload de Múltiplas Imagens</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar</button>
+</form>
+</body>
+</html>
