@@ -1,9 +1,10 @@
-from PIL.ImageDraw import ImageDraw
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-from forms import FileFieldForm
+from django.contrib.auth import authenticate, login
+from admin.models import Admin
+from forms import FileFieldForm, LoginForm
 from principal.models import Product, Image
 
 
@@ -36,7 +37,22 @@ class FileFieldFormView(FormView):
 
 
 def index(request):
-    return render(request, "admin/index.html")
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            if email and password is not None:
+                admin = Admin.objects.get(email=email)
+                if admin.check_password(password):
+                    return HttpResponseRedirect(reverse_lazy("dashboard"))
+                else:
+                    print("Invalid email or password")
+            else:
+                print("Invalid email or password")
+    else:
+        form = LoginForm()
+    return render(request, "admin/index.html", {"form": form})
 
 
 def dashboard(request):
@@ -51,3 +67,9 @@ def product_edit(request, product_id):
     print(image)
 
     return render(request, "admin/product_edit.html")
+
+# def create_admin(request):
+#     admin = Admin(email=)
+#     admin.set_password()  # Criptografa a senha
+#     admin.save()
+#     return HttpResponse("Criado com sucesso!")

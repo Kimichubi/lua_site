@@ -26,3 +26,8 @@ class FileFieldForm(forms.Form):
     desc = forms.CharField(label="Descrição", max_length=100)
     price = forms.IntegerField(label="Preço")
     file_field = MultipleFileField()
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(label="E-mail")
+    password = forms.CharField(label="<PASSWORD>", widget=forms.PasswordInput)

@@ -37,4 +37,6 @@ urlpatterns = [
                   path('product/<int:product_id>', principal_views.product_id, name='product_id'),
                   path('product/send', principal_views.send, name='send'),
 
+                  # path("create/admin/", admin_views.create_admin, name="create_admin"),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
