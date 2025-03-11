@@ -18,21 +18,23 @@ Including another URLconf
 from django.urls import path
 import admin.views as admin_views
 import principal.views as principal_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    #    path('admin/', admin.site.urls),
+                  #    path('admin/', admin.site.urls),
 
-    # ADMIN
-    path('admin/', admin_views.index, name='index'),
-    path('admin/dashboard/', admin_views.dashboard, name='dashboard'),
-    path('admin/edit/<int:product_id>', admin_views.product_edit, name='edit'),
-    path('admin/register/', admin_views.FileFieldFormView.as_view(), name='register'),
+                  # ADMIN
+                  path('admin/', admin_views.index, name='index'),
+                  path('admin/dashboard/', admin_views.dashboard, name='dashboard'),
+                  path('admin/edit/<int:product_id>', admin_views.product_edit, name='edit'),
+                  path('admin/register/', admin_views.FileFieldFormView.as_view(), name='register'),
 
-    # PRINCIPAL
-    path('', principal_views.index, name='index'),
-    path('services/', principal_views.services, name='services'),
-    path('product/', principal_views.product, name='product'),
-    path('product/<int:product_id>', principal_views.product_id, name='product_id'),
-    path('product/send', principal_views.send, name='send'),
+                  # PRINCIPAL
+                  path('', principal_views.index, name='index'),
+                  path('services/', principal_views.services, name='services'),
+                  path('product/', principal_views.product, name='product'),
+                  path('product/<int:product_id>', principal_views.product_id, name='product_id'),
+                  path('product/send', principal_views.send, name='send'),
 
-]
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

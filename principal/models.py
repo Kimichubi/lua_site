@@ -14,8 +14,8 @@ class Product(models.Model):
 
 
 class Image(models.Model):
-    url = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='product/images')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.url}, {self.product_id}"
+        return f"{self.photo}, {self.product_id}"

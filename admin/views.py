@@ -1,3 +1,4 @@
+from PIL.ImageDraw import ImageDraw
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -27,7 +28,7 @@ class FileFieldFormView(FormView):
 
         for f in files:
             image = Image()
-            image.url = f
+            image.photo = f
             image.product_id = product.id
             image.save()
 
@@ -43,4 +44,10 @@ def dashboard(request):
 
 
 def product_edit(request, product_id):
+    product = Product.objects.get(id=product_id)
+
+    image = Image.objects.filter(product_id=product.id)
+
+    print(image)
+
     return render(request, "admin/product_edit.html")
