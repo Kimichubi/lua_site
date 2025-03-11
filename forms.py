@@ -1,6 +1,7 @@
 from django import forms
 
 
+# Configuração para aceitar mais de uma imagem.
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
 
@@ -19,5 +20,9 @@ class MultipleFileField(forms.FileField):
         return result
 
 
+# Classe do Form para colocar no template HTML
 class FileFieldForm(forms.Form):
+    title = forms.CharField(label="Titúlo", max_length=100)
+    desc = forms.CharField(label="Descrição", max_length=100)
+    price = forms.IntegerField(label="Preço")
     file_field = MultipleFileField()

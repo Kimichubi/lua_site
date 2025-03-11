@@ -1,12 +1,12 @@
-<!-- upload_imagens.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <title>Upload de Múltiplas Imagens</title>
+    <title>Cadastro de Produtos Lua</title>
 </head>
 <body>
-<h1>Upload de Múltiplas Imagens</h1>
+<h1>Cadastro de Produtos Lua</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

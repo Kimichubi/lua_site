@@ -1,7 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from forms import FileFieldForm
+from principal.models import Product, Image
 
 
 # Create your views here.
@@ -13,8 +15,22 @@ class FileFieldFormView(FormView):
 
     def form_valid(self, form):
         files = form.cleaned_data["file_field"]
+        title = form.cleaned_data["title"]
+        desc = form.cleaned_data["desc"]
+        price = form.cleaned_data["price"]
+
+        product = Product()
+        product.name = title
+        product.desc = desc
+        product.price = price
+        product.save()
+
         for f in files:
-            print(f"Nome do arquivo: {f.name}, Tamanho: {f.size} bytes")
+            image = Image()
+            image.url = f
+            image.product_id = product.id
+            image.save()
+
         return super().form_valid(form)
 
 

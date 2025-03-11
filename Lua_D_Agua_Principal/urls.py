@@ -34,4 +34,5 @@ urlpatterns = [
     path('product/', principal_views.product, name='product'),
     path('product/<int:product_id>', principal_views.product_id, name='product_id'),
     path('product/send', principal_views.send, name='send'),
+
 ]
