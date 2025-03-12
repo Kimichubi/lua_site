@@ -8,6 +8,7 @@
           content="Painel de Controle Administrativo Lua D'Água - Gerenciamento de produtos e conteúdo">
     <title>Dashboard Administrativo - Lua D'Água Purificadores</title>
     <link rel="stylesheet" href="{% static 'admin/dashboard.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/lua_logo.jpg' %}" type="image/x-icon">
 </head>
 <body>
 <nav class="main-nav">
@@ -30,7 +31,7 @@
     </header>
 
     <section class="products-grid">
-        {% for product in products %}
+        {% for product in page_obj %}
             <article class="product-card">
                 <div class="product-image">
                     {% if product.images.first %}
@@ -55,13 +56,31 @@
             </article>
         {% endfor %}
 
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="page-link first">Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link prev">Anterior</a>
+        {% endif %}
 
+        <span class="current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="page-link next">Próxima</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link last">Última</a>
+        {% endif %}
+    </span>
+        </div>
         <!-- Repetir para outros produtos -->
     </section>
+
 </main>
 
+
 <footer class="dashboard-footer">
-    <p class="copyright">&copy; 2024 LA Software Solution. Todos os direitos reservados.</p>
+    <p class="copyright">&copy; 2025 Lua D' Água todos os direitos reservados.</p>
 </footer>
 <div id="deleteModal" class="modal">
     <div class="modal-content">

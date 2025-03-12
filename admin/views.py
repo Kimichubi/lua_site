@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -80,7 +81,15 @@ def dashboard(request):
     if cleaned_count > 0:
         messages.warning(request, f"{cleaned_count} imagens inválidas foram removidas do banco de dados")
     products = Product.objects.all().prefetch_related('images')
-    return render(request, "admin/dashboard.html", {"products": products})
+    paginator = Paginator(products, 10)
+
+    page_number = request.GET.get("page")
+
+    if page_number == 0:
+        page_number = 1
+
+    page_obj = paginator.get_page(page_number)
+    return render(request, "admin/dashboard.html", {"page_obj": page_obj})
 
 
 @login_required

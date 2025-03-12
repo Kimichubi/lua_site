@@ -14,9 +14,11 @@
     <meta property="og:image" content="{% static 'principal/logo-social.jpg' %}">
     <link rel="canonical" href="https://www.luadagua.com/produtos">
     <title>Produtos para Água Pura | Purificadores e Filtros - Lua D'Água</title>
-    <link rel="stylesheet" href={% static 'principal/product_page.css' %}>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href={% static 'principal/product_page.css' %}>
+    <link rel="shortcut icon" href="{% static 'images/lua_logo.jpg' %}" type="image/x-icon">
 </head>
 <body>
 <header class="main-header">
@@ -35,28 +37,39 @@
         <h2 class="filter-title">Filtrar por Categoria</h2>
         <ul class="filter-list">
             <li>
-                <a href="{% url 'product_category' 'Purificadores' %}" class="filter-btn"
+                <a href="{% url 'product' %}"
+                   class="filter-btn {% if request.path == '/product/' %}active{% endif %}"
+                   data-category="all">Limpar Filtro</a>
+            </li>
+            <li>
+                <a href="{% url 'product_category' 'Purificadores' %}"
+                   class="filter-btn {% if request.path == '/product/Purificadores/' %}active{% endif %}"
                    data-category="purificadores">Purificadores</a>
             </li>
             <li>
-                <a href="{% url 'product_category' 'Bebedouros' %}" class="filter-btn"
-                   data-category="purificadores">Bebedouros</a>
+                <a href="{% url 'product_category' 'Bebedouros' %}"
+                   class="filter-btn {% if request.path == '/product/Bebedouros/' %} active {% endif %}"
+                   data-category="bebedouros">Bebedouros</a>
             </li>
             <li>
-                <a href="{% url 'product_category' 'Filtros' %}" class="filter-btn"
-                   data-category="purificadores">Filtros</a>
+                <a href="{% url 'product_category' 'Filtros' %}"
+                   class="filter-btn {% if request.path == '/product/Filtros/' %}active{% endif %}"
+                   data-category="filtros">Filtros</a>
             </li>
             <li>
-                <a href="{% url 'product_category' 'Peças' %}" class="filter-btn"
-                   data-category="purificadores">Peças</a>
+                <a href="{% url 'product_category' 'Pecas' %}"
+                   class="filter-btn {% if request.path == '/product/Pecas/' %}active{% endif %}"
+                   data-category="pecas">Peças</a>
             </li>
         </ul>
     </aside>
 
     <section class="product-main" itemscope itemtype="http://schema.org/ItemList">
         <div class="search-container">
-            <form role="search" class="search-form">
+            <form role="search" class="search-form" method="post">
+                {% csrf_token %}
                 <input type="search"
+                       name="search"
                        placeholder="Buscar produtos..."
                        aria-label="Buscar produtos"
                        class="search-input">
@@ -67,7 +80,7 @@
         </div>
 
         <div class="product-grid">
-            {% for product in products %}
+            {% for product in page_obj %}
                 <article class="product-card" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
                     <div class="product-image-container">
                         <img src="{{ product.images.first.photo.url }}"
@@ -90,6 +103,23 @@
                 </article>
             {% endfor %}
         </div>
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="page-link first">Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link prev">Anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="page-link next">Próxima</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link last">Última</a>
+        {% endif %}
+    </span>
+        </div>
     </section>
 </main>
 
@@ -103,18 +133,19 @@
         <div class="footer-section">
             <h4 class="footer-title">Redes Sociais</h4>
             <div class="social-links">
-                <a href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link" aria-label="Instagram">
+                <a target="_blank" href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link"
+                   aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://wa.me/5541988968008" class="social-link" aria-label="WhatsApp">
+                <a target="_blank" href="https://wa.me/5541988968008" class="social-link" aria-label="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2024 Lua D'Água Purificadores. Todos os direitos reservados.</p>
-        <p>Desenvolvido por Software Solution</p>
+        <p>&copy; 2025 Lua D'Água Purificadores. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Kimichubi</p>
     </div>
 </footer>
 </body>

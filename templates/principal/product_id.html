@@ -4,54 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ product.name }} - {{ product.description|truncatechars:150 }}">
+    {#    <meta name="description" content="{{ product.name }} - {{ product.description|truncatechars:150}}">#}
     <meta name="keywords" content="{{ product.name }}, purificador de água, filtro água, {{ product.category }}">
     <meta name="author" content="Lua D'Água Purificadores">
     <meta property="og:title" content="{{ product.name }} | Lua D'Água">
-    <meta property="og:description" content="{{ product.description|truncatechars:150 }}">
+    {#    <meta property="og:description" content="{{ product.description|truncatechars:150}}">#}
     <meta property="og:image" content="{{ product.images.first.photo.url }}">
     <link rel="canonical" href="https://www.luadagua.com/produtos/{{ product.id }}">
     <title>{{ product.name }} | Especificações e Detalhes - Lua D'Água</title>
-    <link rel="stylesheet" href="{% static 'principal/product_page.css' %}">
-    <link rel="stylesheet" href="{% static 'principal/product_by_id.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'images/lua_logo.jpg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'principal/product_page.css' %}">
+    <link rel="stylesheet" href="{% static 'principal/product_by_id.css' %}">
 </head>
 <body>
-    <header class="main-header">
-        <nav aria-label="Navegação principal">
-            <ul class="nav-list">
-                <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="{% url 'product' %}" class="nav-link">Produtos</a></li>
-                <li><a href="{% url 'services' %}" class="nav-link">Serviços</a></li>
-                <li><a href="#parceiros" class="nav-link">Seja Parceiro</a></li>
-            </ul>
-        </nav>
-    </header>
+<header class="main-header">
+    <nav aria-label="Navegação principal">
+        <ul class="nav-list">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="{% url 'product' %}" class="nav-link">Produtos</a></li>
+            <li><a href="{% url 'services' %}" class="nav-link">Serviços</a></li>
+            <li><a href="#parceiros" class="nav-link">Seja Parceiro</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <main class="product-detail-container">
-        <div class="product-gallery">
-            <div class="main-image">
-                <img src="{{ product.images.first.photo.url }}"
-                     alt="{{ product.name }}"
-                     class="active"
-                     loading="lazy"
-                     itemprop="image">
-            </div>
-            <div class="thumbnail-grid">
-                {% for image in product.images.all %}
+<main class="product-detail-container">
+    <div class="product-gallery">
+        <div class="main-image">
+            <img src="{{ product.images.first.photo.url }}"
+                 alt="{{ product.name }}"
+                 class="active"
+                 loading="lazy"
+                 itemprop="image">
+        </div>
+        <div class="thumbnail-grid">
+            {% for image in product.images.all %}
                 <div class="thumbnail-item">
                     <img src="{{ image.photo.url }}"
                          alt="{{ product.name }} - Imagem {{ forloop.counter }}"
                          loading="lazy">
                 </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
+    </div>
 
-        <div class="product-info">
-            <h1 class="product-title" itemprop="name">{{ product.name }}</h1>
-            <div class="product-meta">
+    <div class="product-info">
+        <h1 class="product-title" itemprop="name">{{ product.name }}</h1>
+        <div class="product-meta">
                 <span class="product-rating">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -60,84 +61,93 @@
                     <i class="fas fa-star"></i>
                     <span class="rating-value">5.0</span>
                 </span>
-                <span class="product-sku" itemprop="sku">Código: {{ product.id }}</span>
-            </div>
-
-            <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                <span class="price-label">Preço:</span>
-                <span class="price-value" itemprop="priceCurrency" content="BRL">R$</span>
-                <span class="price-value" itemprop="price" content="{{ product.price }}">{{ product.price }}</span>
-            </div>
-
-            <div class="product-actions">
-                <button class="btn-primary">
-                    <i class="fas fa-shopping-cart"></i>
-                    Comprar Agora
-                </button>
-                <button class="btn-secondary">
-                    <i class="fas fa-phone"></i>
-                    Fale Conosco
-                </button>
-            </div>
-
-            <div class="product-description" itemprop="description">
-                <h2>Descrição do Produto</h2>
-                <p>{{ product.description }}</p>
-            </div>
-
-{#            <div class="product-specs">#}
-{#                <h2>Especificações Técnicas</h2>#}
-{#                <ul>#}
-{#                    <li><strong>Dimensões:</strong> 30cm x 20cm x 15cm</li>#}
-{#                    <li><strong>Peso:</strong> 2.5kg</li>#}
-{#                    <li><strong>Material:</strong> Plástico ABS</li>#}
-{#                    <li><strong>Garantia:</strong> 12 meses</li>#}
-{#                </ul>#}
-{#            </div>#}
+            <span class="product-sku" itemprop="sku">Código: {{ product.id }}</span>
         </div>
-    </main>
 
-    <section class="related-products">
-        <h2>Produtos Relacionados</h2>
-        <div class="related-grid">
-            {% for related in related_products %}
+        <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <span class="price-label">Preço:</span>
+            <span class="price-value" itemprop="priceCurrency" content="BRL">R$</span>
+            <span class="price-value" itemprop="price" content="{{ product.price }}">{{ product.price }}</span>
+        </div>
+
+        <div class="product-actions">
+            <button class="btn-primary">
+                <a href="https://wa.me/5541988968008?text=Olá%20me%20interessei%20pelo%20{{ product.name|urlencode }}.%20Acesse%20aqui%20para%20ver%20o%20produto:%20{{ request.build_absolute_uri|urlencode }}"
+
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Fale conosco no WhatsApp sobre {{ product.name }}"> <i class="fas fa-shopping-cart"></i>Comprar
+                    Agora</a>
+            </button>
+            <a href="https://wa.me/5541988968008?text=Olá%20me%20interessei%20pelo%20{{ product.name|urlencode }}.%20Acesse%20aqui%20para%20ver%20o%20produto:%20{{ request.build_absolute_uri|urlencode }}"
+               class="btn-secondary"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Fale conosco no WhatsApp sobre {{ product.name }}">
+                <i class="fas fa-phone"></i>
+                Fale Conosco
+            </a>
+        </div>
+
+        <div class="product-description" itemprop="description">
+            <h2>Descrição do Produto</h2>
+            <p>{{ product.description }}</p>
+        </div>
+
+        {#            <div class="product-specs">#}
+        {#                <h2>Especificações Técnicas</h2>#}
+        {#                <ul>#}
+        {#                    <li><strong>Dimensões:</strong> 30cm x 20cm x 15cm</li>#}
+        {#                    <li><strong>Peso:</strong> 2.5kg</li>#}
+        {#                    <li><strong>Material:</strong> Plástico ABS</li>#}
+        {#                    <li><strong>Garantia:</strong> 12 meses</li>#}
+        {#                </ul>#}
+        {#            </div>#}
+    </div>
+</main>
+
+<section class="related-products">
+    <h2>Produtos Relacionados</h2>
+    <div class="related-grid">
+        {% for related in related_products %}
             <article class="related-card">
                 <img src="{{ related.images.first.photo.url }}"
                      alt="{{ related.name }}"
                      loading="lazy">
                 <h3>{{ related.name }}</h3>
                 <p>R$ {{ related.price }}</p>
-                <a href="{% url 'product_detail' related.id %}" class="btn-link">
+                <a href="{% url 'product_id' related.id %}" class="btn-link">
                     Ver Detalhes <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
-            {% endfor %}
-        </div>
-    </section>
+        {% endfor %}
+    </div>
+</section>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4 class="footer-title">Contato</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Rua Aristides de Oliveira, 398 - Pinhais/PR</p>
-                <p><i class="fas fa-phone"></i> (41) 98896-8008</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-title">Redes Sociais</h4>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                </div>
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4 class="footer-title">Contato</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Rua Aristides de Oliveira, 398 - Pinhais/PR</p>
+            <p><i class="fas fa-phone"></i> (41) 98896-8008</p>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-title">Redes Sociais</h4>
+            <div class="social-links">
+                <a target="_blank" href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link"
+                   aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a target="_blank" href="https://wa.me/5541988968008" class="social-link" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Lua D'Água Purificadores. Todos os direitos reservados.</p>
-            <p>Desenvolvido por Software Solution</p>
-        </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Lua D'Água Purificadores. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Kimichubi</p>
+    </div>
+</footer>
 </body>
 </html>

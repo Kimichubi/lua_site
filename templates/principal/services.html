@@ -13,9 +13,11 @@
     <meta property="og:description"
           content="Serviços completos para seu purificador de água em Pinhais PR. Troca de filtros, higienização e manutenção elétrica.">
     <meta property="og:image" content="{% static 'principal/servicos-social.jpg' %}">
+
     <link rel="canonical" href="https://www.luadagua.com/servicos">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'principal/tab_services.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/lua_logo.jpg' %}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600&display=swap"
           rel="stylesheet">
 </head>
@@ -29,12 +31,12 @@
     <i class="fab fa-whatsapp"></i>
 </a>
 
-<nav class="main-nav" aria-label="Navegação principal">
+<nav class="main-nav">
     <ul class="nav-list">
         <li><a href="/" class="nav-link">Home</a></li>
         <li><a href="{% url 'product' %}" class="nav-link">Produtos</a></li>
         <li><a href="{% url 'services' %}" class="nav-link active">Serviços</a></li>
-        <li><a href="#parceiros" class="nav-link">Seja Parceiro</a></li>
+        <li><a href="#" class="nav-link">Seja Parceiro</a></li>
     </ul>
 </nav>
 
@@ -92,10 +94,11 @@
         <div class="footer-section">
             <h4 class="footer-title">Redes Sociais</h4>
             <div class="social-links">
-                <a href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link" aria-label="Instagram">
+                <a target="_blank" href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link"
+                   aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="social-link" aria-label="WhatsApp">
+                <a target="_blank" href="https://wa.me/5541988968008" class="social-link" aria-label="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>

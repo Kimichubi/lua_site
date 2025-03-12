@@ -313,6 +313,67 @@ body {
     transform: translateX(5px);
 }
 
+/* ========== PAGINAÇÃO ========== */
+.pagination {
+    grid-column: 1 / -1;
+    margin: 3rem 0 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.step-links {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page-link {
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(42, 92, 130, 0.2);
+    transition: var(--transition);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.page-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.page-link.first::before {
+    content: "«";
+}
+
+.page-link.prev::before {
+    content: "‹";
+}
+
+.page-link.next::after {
+    content: "›";
+}
+
+.page-link.last::after {
+    content: "»";
+}
+
+.current {
+    padding: 0.5rem 1rem;
+    background: rgba(42, 92, 130, 0.1);
+    border-radius: 8px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+
 /* ========== FOOTER ========== */
 .main-footer {
     background: var(--dark-bg);

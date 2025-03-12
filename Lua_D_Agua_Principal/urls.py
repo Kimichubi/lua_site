@@ -36,7 +36,7 @@ urlpatterns = [
                   path('services/', principal_views.services, name='services'),
                   path('product/', principal_views.product, name='product'),
                   path('product/<int:product_id>', principal_views.product_id, name='product_id'),
-                  path('product/<str:product_category>', principal_views.product_by_category, name='product_category'),
+                  path('product/<str:product_category>/', principal_views.product_by_category, name='product_category'),
 
                   # path("create/admin/", admin_views.create_admin, name="create_admin"),
 
