@@ -15,8 +15,17 @@ def services(request):
 
 
 def product(request):
-    return render(request, "principal/product.html")
+    product = Product.objects.all()
+
+    return render(request, "principal/product.html", {"products": product})
+
+
+def product_by_category(request, category_name):
+    product = Product.objects.get(category=category_name)
+
+    return render(request, "principal/product.html", {"products": product})
 
 
 def product_id(request, product_id):
-    return render(request, "principal/product_id.html")
+    product = Product.objects.get(id=product_id)
+    return render(request, "principal/product_id.html", {"product": product})

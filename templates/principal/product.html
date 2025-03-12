@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR" itemscope itemtype="http://schema.org/Store">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Compre os melhores purificadores, filtros de água e peças hidráulicas em [Cidade/Estado]. Garanta água pura para sua família com a Lua D'Água - Especialistas em tratamento de água desde [ano]">
+    <meta name="keywords"
+          content="purificador de água, filtro água, peças para purificador, manutenção purificador, bebedouro empresarial">
+    <meta name="author" content="Lua D'Água Purificadores">
+    <meta property="og:title" content="Produtos para Tratamento de Água | Lua D'Água">
+    <meta property="og:description" content="Encontre os melhores equipamentos para água pura e saudável">
+    <meta property="og:image" content="{% static 'principal/logo-social.jpg' %}">
+    <link rel="canonical" href="https://www.luadagua.com/produtos">
+    <title>Produtos para Água Pura | Purificadores e Filtros - Lua D'Água</title>
+    <link rel="stylesheet" href={% static 'principal/product_page.css' %}>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header class="main-header">
+    <nav aria-label="Navegação principal">
+        <ul class="nav-list">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href={% url 'product' %} class="nav-link active">Produtos</a></li>
+            <li><a href={% url 'services' %} class="nav-link">Serviços</a></li>
+            <li><a href="#parceiros" class="nav-link">Seja Parceiro</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="main-content">
+    <aside class="filter-sidebar" aria-label="Filtros de produtos">
+        <h2 class="filter-title">Filtrar por Categoria</h2>
+        <ul class="filter-list">
+            <li>
+                <a href="{% url 'product' %}" class="filter-btn" data-category="purificadores">Purificadores</a>
+            </li>
+            <li>
+                <button class="filter-btn" data-category="bebedouros">Bebedouros</button>
+            </li>
+            <li>
+                <button class="filter-btn" data-category="filtros">Filtros</button>
+            </li>
+            <li>
+                <button class="filter-btn" data-category="pecas">Peças</button>
+            </li>
+        </ul>
+    </aside>
+
+    <section class="product-main" itemscope itemtype="http://schema.org/ItemList">
+        <div class="search-container">
+            <form role="search" class="search-form">
+                <input type="search"
+                       placeholder="Buscar produtos..."
+                       aria-label="Buscar produtos"
+                       class="search-input">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="product-grid">
+            {% for product in products %}
+                <article class="product-card" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
+                    <div class="product-image-container">
+                        <img src="{{ product.images.first.photo.url }}"
+                             alt="{{ product.name }} - Lua D'Água"
+                             class="product-image"
+                             loading="lazy"
+                             itemprop="image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title" itemprop="name">{{ product.name }}</h3>
+                        <p class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="BRL">R$</span>
+                            <span itemprop="price" content="{{ product.price }}">{{ product.price }}</span>
+                        </p>
+                        <a href="{% url 'product_id' product.id %}" class="product-cta"
+                           aria-label="Ver detalhes de {{ product.name }}">
+                            Detalhes <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4 class="footer-title">Contato</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Rua Aristides de Oliveira, 398 - Pinhais/PR</p>
+            <p><i class="fas fa-phone"></i> (41) 98896-8008</p>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-title">Redes Sociais</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Lua D'Água Purificadores. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Software Solution</p>
+    </div>
+</footer>
+</body>
+</html>

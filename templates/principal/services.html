@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR" itemscope itemtype="http://schema.org/Service">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços Especializados | Lua D'Água Purificadores</title>
+    <meta name="description"
+          content="Serviços especializados em purificadores de água: troca de filtros, higienização e manutenção elétrica. Atendimento domiciliar e em nossa loja em Pinhais PR.">
+    <meta name="keywords"
+          content="troca de filtro de água, higienização de purificadores, manutenção elétrica, assistência técnica, Pinhais PR">
+    <meta property="og:title" content="Serviços Especializados | Lua D'Água Purificadores">
+    <meta property="og:description"
+          content="Serviços completos para seu purificador de água em Pinhais PR. Troca de filtros, higienização e manutenção elétrica.">
+    <meta property="og:image" content="{% static 'principal/servicos-social.jpg' %}">
+    <link rel="canonical" href="https://www.luadagua.com/servicos">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'principal/tab_services.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5541988968008"
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Fale conosco no WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<nav class="main-nav" aria-label="Navegação principal">
+    <ul class="nav-list">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="{% url 'product' %}" class="nav-link">Produtos</a></li>
+        <li><a href="{% url 'services' %}" class="nav-link active">Serviços</a></li>
+        <li><a href="#parceiros" class="nav-link">Seja Parceiro</a></li>
+    </ul>
+</nav>
+
+<main class="services-container">
+    <h1 class="services-title">Nossos Serviços</h1>
+
+    <section class="services-grid">
+        <article class="service-card" itemscope itemtype="http://schema.org/Service">
+            <div class="service-icon">
+                <i class="fas fa-filter"></i>
+            </div>
+            <h2 class="service-name" itemprop="name">Troca de Filtro de Água</h2>
+            <p class="service-description" itemprop="description">
+                Realizamos a substituição do seu filtro para assegurar água de alta qualidade.
+                Nossa equipe pode comparecer à sua residência ou empresa - serviço que pode
+                implicar custo adicional - ou você pode optar por trazer o equipamento até a
+                nossa loja.
+            </p>
+        </article>
+
+        <article class="service-card" itemscope itemtype="http://schema.org/Service">
+            <div class="service-icon">
+                <i class="fas fa-hand-sparkles"></i>
+            </div>
+            <h2 class="service-name" itemprop="name">Higienização</h2>
+            <p class="service-description" itemprop="description">
+                Efetuamos a limpeza completa do seu aparelho, garantindo seu pleno funcionamento.
+                Atendimento domiciliar ou empresarial disponível mediante custo adicional, com a
+                alternativa de deixar o aparelho em nossa loja.
+            </p>
+        </article>
+
+        <article class="service-card" itemscope itemtype="http://schema.org/Service">
+            <div class="service-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h2 class="service-name" itemprop="name">Manutenção Elétrica</h2>
+            <p class="service-description" itemprop="description">
+                Nossos técnicos especializados realizam avaliação minuciosa do seu aparelho para
+                identificar eventuais problemas. Após a inspeção, fornecemos um orçamento
+                detalhado com todas as avarias encontradas e soluções propostas. Serviço
+                disponível em domicílio, empresa ou em nossa loja.
+            </p>
+        </article>
+    </section>
+</main>
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4 class="footer-title">Contato</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Rua Aristides de Oliveira, 398 - Pinhais/PR</p>
+            <p><i class="fas fa-phone"></i> (41) 98896-8008</p>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-title">Redes Sociais</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Lua D'Água Purificadores. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Software Solution</p>
+    </div>
+</footer>
+</body>
+</html>

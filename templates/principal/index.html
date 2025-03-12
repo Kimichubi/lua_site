@@ -1,46 +1,70 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" itemscope itemtype="http://schema.org/LocalBusiness">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lua D'Água - Purificadores de Água e Saúde Familiar</title>
     <meta name="description"
-          content="Cuide da saúde da sua família com os purificadores de água da Lua D'Água. Manutenção especializada e água de qualidade superior em Fundão FR.">
+          content="Cuide da saúde da sua família com os purificadores de água da Lua D'Água. Manutenção especializada e água de qualidade superior em Pinhais PR.">
     <meta name="keywords"
-          content="purificador de água, saúde familiar, qualidade da água, manutenção de purificadores, Fundão FR">
+          content="purificador de água, saúde familiar, qualidade da água, manutenção de purificadores, Pinhais PR">
+    <meta property="og:title" content="Lua D'Água - Purificadores de Água e Saúde Familiar">
+    <meta property="og:description"
+          content="Água pura e saudável para sua família em Pinhais PR. Especialistas em purificadores e manutenção.">
+    <meta property="og:image" content="{% static 'principal/logo-social.jpg' %}">
+    <meta property="og:url" content="https://www.luadagua.com">
+    <link rel="canonical" href="https://www.luadagua.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href={% static 'principal/index.css' %}>
+    <link rel="stylesheet" href="{% static 'principal/principal_home.css' %}">
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#missao">Missão</a></li>
-        <li><a href="#localizacao">Localização</a></li>
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/5541988968008"
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Fale conosco no WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<nav class="main-nav">
+    <ul class="nav-list">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="{% url 'product' %}" class="nav-link">Produtos</a></li>
+        <li><a href="{% url 'services' %}" class="nav-link">Serviços</a></li>
+        <li><a href="#" class="nav-link">Seja Parceiro</a></li>
     </ul>
 </nav>
 
 <section class="hero" id="home">
-    <h1>Lua D'Água</h1>
-    <p>Cuidando da sua saúde e da sua família</p>
-</section>
-
-<section class="section" id="missao">
-    <div class="mission-card">
-        <h2>Nossa Missão</h2>
-        <p>Na Lua D’Água, nossa missão é proporcionar água de qualidade superior a nossos clientes, mantendo seus
-            purificadores em perfeito estado. Nosso objetivo é tornar o ato de beber água tão simples e natural quanto
-            deve ser, garantindo uma experiência excepcional por meio de um atendimento especializado e dedicado.</p>
+    <div class="hero-content">
+        <h1 class="hero-title">Lua D'Água</h1>
+        <p class="hero-subtitle">Cuidando da sua saúde e da sua família</p>
+        <a href="{% url 'product' %}" class="hero-cta">Conheça Nossos Produtos</a>
     </div>
 </section>
 
-<section class="section" id="localizacao">
+<section class="section mission-section" id="missao">
+    <div class="mission-card">
+        <h2 class="section-title">Nossa Missão</h2>
+        <p class="mission-text">Na Lua D’Água, nossa missão é proporcionar água de qualidade superior a nossos clientes,
+            mantendo seus purificadores em perfeito estado. Nosso objetivo é tornar o ato de beber água tão simples e
+            natural quanto deve ser, garantindo uma experiência excepcional por meio de um atendimento especializado e
+            dedicado.</p>
+    </div>
+</section>
+
+<section class="section location-section" id="localizacao">
     <div class="location">
-        <h2>Localização</h2>
+        <h2 class="section-title">Localização</h2>
         <div class="contact-info">
             <i class="fas fa-map-marker-alt"></i>
-            <p>Rua Aristides de Oliveira 398 - Atuba - PINHAIS PR</p>
+            <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <span itemprop="streetAddress">Rua Aristides de Oliveira 398</span> -
+                <span itemprop="addressLocality">Atuba</span>,
+                <span itemprop="addressRegion">Pinhais PR</span>
+            </p>
         </div>
         <div class="map-container">
             <iframe
@@ -50,14 +74,36 @@
                     style="border:0;"
                     allowfullscreen=""
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
+                    referrerpolicy="no-referrer-when-downgrade"
+                    aria-label="Mapa da localização da Lua D'Água">
             </iframe>
         </div>
     </div>
 </section>
 
-<footer>
-    <p>&copy; 2024 Lua D'Água - Todos os direitos reservados</p>
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4 class="footer-title">Contato</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Rua Aristides de Oliveira, 398 - Pinhais/PR</p>
+            <p><i class="fas fa-phone"></i> (41) 98896-8008</p>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-title">Redes Sociais</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Lua D'Água Purificadores. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Software Solution</p>
+    </div>
 </footer>
 </body>
 </html>
