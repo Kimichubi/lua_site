@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from principal.models import Product
+from principal.models import Product, Category
 
 
 # Create your views here.
@@ -16,12 +16,12 @@ def services(request):
 
 def product(request):
     product = Product.objects.all()
-
     return render(request, "principal/product.html", {"products": product})
 
 
-def product_by_category(request, category_name):
-    product = Product.objects.get(category=category_name)
+def product_by_category(request, product_category):
+    category = Category.objects.get(name=product_category)
+    product = Product.objects.filter(category_id=category.id)
 
     return render(request, "principal/product.html", {"products": product})
 

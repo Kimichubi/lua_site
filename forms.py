@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
+from principal.models import Category
+
 
 # Configuração para aceitar mais de uma imagem.
 class MultipleFileInput(forms.ClearableFileInput):
@@ -26,6 +28,7 @@ class FileFieldForm(forms.Form):
     title = forms.CharField(label="Titúlo", max_length=100)
     desc = forms.CharField(label="Descrição", max_length=100)
     price = forms.IntegerField(label="Preço")
+    category = forms.ModelChoiceField(label="Categoria", queryset=Category.objects.all())
     file_field = MultipleFileField()
 
 

@@ -61,6 +61,20 @@
                        required
                        aria-required="true">
             </div>
+            <div class="form-group">
+                <label class="form-label" for="id_category">Categoria *</label>
+                <div class="category">
+                    <select name="category" id="id_category" class="form-input" required aria-required="true">
+                        <option value="">Selecione uma categoria</option>
+                        {% for category in categories %}
+                            <option value="{{ category.name }}"
+                                    {% if product.category.name == category.name %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </fieldset>
 
         <!-- Seção de Imagens -->

@@ -141,6 +141,68 @@ textarea:focus {
     padding-left: 3rem;
 }
 
+label[for="category"] {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2A5C82; /* Cor primária */
+    margin-bottom: 0.5rem;
+}
+
+/* Estilo para o dropdown */
+.category select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: #333; /* Cor do texto */
+    background-color: #fff; /* Fundo branco */
+    border: 2px solid #ddd; /* Borda cinza */
+    border-radius: 8px; /* Bordas arredondadas */
+    appearance: none; /* Remove o estilo padrão do navegador */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo quando o dropdown está em foco */
+.category select:focus {
+    border-color: #4AB3F4; /* Cor azul quando focado */
+    outline: none; /* Remove o outline padrão */
+    box-shadow: 0 0 0 3px rgba(74, 179, 244, 0.2); /* Sombra suave */
+}
+
+/* Estilo quando o dropdown está com hover */
+.category select:hover {
+    border-color: #2A5C82; /* Cor azul escuro no hover */
+}
+
+/* Estilo para a seta do dropdown */
+.category {
+    position: relative;
+}
+
+.category::after {
+    content: "▼"; /* Seta personalizada */
+    font-size: 0.8rem;
+    color: #2A5C82; /* Cor da seta */
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Impede que a seta bloqueie o clique */
+}
+
+/* Estilo para as opções do dropdown */
+.category select option {
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Estilo para o placeholder (se houver) */
+.category select option[value=""] {
+    color: #999; /* Cor mais clara para o placeholder */
+}
+
 .file-upload {
     border: 2px dashed var(--border-color);
     border-radius: var(--border-radius);

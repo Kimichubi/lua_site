@@ -23,8 +23,8 @@
     <nav aria-label="Navegação principal">
         <ul class="nav-list">
             <li><a href="/" class="nav-link">Home</a></li>
-            <li><a href={% url 'product' %} class="nav-link active">Produtos</a></li>
-            <li><a href={% url 'services' %} class="nav-link">Serviços</a></li>
+            <li><a href="{% url 'product' %}" class="nav-link active">Produtos</a></li>
+            <li><a href="{% url 'services' %}" class="nav-link">Serviços</a></li>
             <li><a href="#parceiros" class="nav-link">Seja Parceiro</a></li>
         </ul>
     </nav>
@@ -35,16 +35,20 @@
         <h2 class="filter-title">Filtrar por Categoria</h2>
         <ul class="filter-list">
             <li>
-                <a href="{% url 'product' %}" class="filter-btn" data-category="purificadores">Purificadores</a>
+                <a href="{% url 'product_category' 'Purificadores' %}" class="filter-btn"
+                   data-category="purificadores">Purificadores</a>
             </li>
             <li>
-                <button class="filter-btn" data-category="bebedouros">Bebedouros</button>
+                <a href="{% url 'product_category' 'Bebedouros' %}" class="filter-btn"
+                   data-category="purificadores">Bebedouros</a>
             </li>
             <li>
-                <button class="filter-btn" data-category="filtros">Filtros</button>
+                <a href="{% url 'product_category' 'Filtros' %}" class="filter-btn"
+                   data-category="purificadores">Filtros</a>
             </li>
             <li>
-                <button class="filter-btn" data-category="pecas">Peças</button>
+                <a href="{% url 'product_category' 'Peças' %}" class="filter-btn"
+                   data-category="purificadores">Peças</a>
             </li>
         </ul>
     </aside>
@@ -102,7 +106,7 @@
                 <a href="https://www.instagram.com/lua_d_agua.oficial/" class="social-link" aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="social-link" aria-label="WhatsApp">
+                <a href="https://wa.me/5541988968008" class="social-link" aria-label="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>

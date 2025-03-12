@@ -7,7 +7,7 @@ from django.views.generic import FormView
 from django.contrib.auth import authenticate, login
 from admin.models import Admin
 from forms import FileFieldForm, LoginForm
-from principal.models import Product, Image
+from principal.models import Product, Image, Category
 from decimal import Decimal
 from django.contrib import messages
 
@@ -27,11 +27,14 @@ class FileFieldFormView(FormView):
         title = form.cleaned_data["title"]
         desc = form.cleaned_data["desc"]
         price = form.cleaned_data["price"]
+        category = form.cleaned_data["category"]
+        category = Category.objects.get(name=category)
 
         product = Product()
         product.name = title
         product.description = desc
         product.price = price
+        product.category_id = category.id
         product.save()
 
         for f in files:
@@ -83,12 +86,16 @@ def dashboard(request):
 @login_required
 def product_edit(request, product_id):
     product = Product.objects.get(id=product_id)
+    categories = Category.objects.all()
     if request.method == "POST":
 
         try:
             # Atualiza os campos básicos
             product.name = request.POST.get("title", "").strip()
             product.description = request.POST.get("desc", "").strip()
+            category_name = request.POST.get("category", "").strip()
+            category = Category.objects.get(name=category_name)
+            product.category_id = category.id
             print(product.description)
 
             # Converte o preço para Decimal
@@ -124,7 +131,8 @@ def product_edit(request, product_id):
     images = Image.objects.filter(product=product)
     return render(request, "admin/product_edit.html", {
         "product": product,
-        "images": images
+        "images": images,
+        "categories": categories,
     })
 
 
@@ -134,6 +142,7 @@ def product_edit(request, product_id):
 #         password='
 #     )
 #     return HttpResponse("Criado com sucesso!")
+@login_required
 def delete_product(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=product_id)
