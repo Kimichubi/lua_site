@@ -9,7 +9,17 @@
     <meta name="author" content="Lua D'Água Purificadores">
     <meta property="og:title" content="{{ product.name }} | Lua D'Água">
     {#    <meta property="og:description" content="{{ product.description|truncatechars:150}}">#}
-    <meta property="og:image" content="{{ product.images.first.photo.url }}">
+    {% if product.images.first.photo %}
+        <meta property="og:image" content="{{ product.images.first.photo.url }}">
+
+    {% elif product.images.url %}
+        <meta property="og:image" content="{{ product.images.url }}">
+    {% else %}
+
+        <meta property="og:image"
+              content="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.ac-illust.com%2Fclip-art%2F25480354%2Fno-image-thumbnail-1-with-no-image&psig=AOvVaw2njQ4kEOJnb24d9dZ3ZQk1&ust=1742062010060000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIDS0sKUiowDFQAAAAAdAAAAABAE">
+    {% endif %}
+    <meta property="og:image" content="{{ product.images.url }}">
     <link rel="canonical" href="https://www.luadagua.com/produtos/{{ product.id }}">
     <title>{{ product.name }} | Especificações e Detalhes - Lua D'Água</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,18 +43,45 @@
 <main class="product-detail-container">
     <div class="product-gallery">
         <div class="main-image">
-            <img src="{{ product.images.first.photo.url }}"
-                 alt="{{ product.name }}"
-                 class="active"
-                 loading="lazy"
-                 itemprop="image">
+            {% if product.images.first.photo %}
+                <img src="{{ product.images.first.photo.url }}"
+                     alt="{{ product.name }}"
+                     class="active"
+                     loading="lazy"
+                     itemprop="image">
+            {% elif product.images.first.url %}
+                <img src="{{ product.images.first.url }}"
+                     alt="{{ product.name }}"
+                     class="active"
+                     loading="lazy"
+                     itemprop="image">
+            {% else %}
+                <img src="https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE="
+                     alt="{{ product.name }} - Lua D'Água"
+                     class="product-image"
+                     loading="lazy"
+                     itemprop="image">
+            {% endif %}
+
         </div>
         <div class="thumbnail-grid">
             {% for image in product.images.all %}
+
                 <div class="thumbnail-item">
-                    <img src="{{ image.photo.url }}"
-                         alt="{{ product.name }} - Imagem {{ forloop.counter }}"
-                         loading="lazy">
+                    {% if image.photo %}
+                        <img src="{{ image.photo.url }}"
+                             alt="{{ product.name }} - Imagem {{ forloop.counter }}"
+                             loading="lazy">
+                    {% elif image.url %}
+                        <img src="{{ image.url }}"
+                             alt="{{ product.name }} - Imagem {{ forloop.counter }}"
+                             loading="lazy">
+
+                    {% else %}
+                        <img src="https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg"
+                             alt="{{ product.name }} - Imagem {{ forloop.counter }}"
+                             loading="lazy">
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
@@ -111,14 +148,31 @@
     <div class="related-grid">
         {% for related in related_products %}
             <article class="related-card">
-                <img src="{{ related.images.first.photo.url }}"
-                     alt="{{ related.name }}"
-                     loading="lazy">
+                {% if related.images.first.photo %}
+                    <img src="{{ related.images.first.photo.url }}"
+                         alt="{{ related.name }}"
+                         class="active"
+                         loading="lazy"
+                         itemprop="image">
+                {% elif related.images.first.url %}
+                    <img src="{{ related.images.first.url }}"
+                         alt="{{ related.name }}"
+                         class="active"
+                         loading="lazy"
+                         itemprop="image">
+                {% else %}
+                    <img src="https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE="
+                         alt="{{ related.name }} - Lua D'Água"
+                         class="product-image"
+                         loading="lazy"
+                         itemprop="image">
+                {% endif %}
                 <h3>{{ related.name }}</h3>
                 <p>R$ {{ related.price }}</p>
                 <a href="{% url 'product_id' related.id %}" class="btn-link">
                     Ver Detalhes <i class="fas fa-arrow-right"></i>
                 </a>
+
             </article>
         {% endfor %}
     </div>

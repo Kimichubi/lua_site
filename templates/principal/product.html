@@ -83,7 +83,7 @@
             {% for product in page_obj %}
                 <article class="product-card" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
                     <div class="product-image-container">
-                        {% if product.images.first.photo.url %}
+                        {% if product.images.first.photo %}
                             <img src="{{ product.images.first.photo.url }}"
                                  alt="{{ product.name }} - Lua D'Água"
                                  class="product-image"
