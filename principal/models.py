@@ -23,7 +23,11 @@ class Product(models.Model):
 
 class Image(models.Model):
     photo = models.ImageField(upload_to='product/images')
+    url = models.CharField(max_length=300)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
 
     def __str__(self):
-        return f"{self.photo}, {self.product_id}"
+        if self.photo != '':
+            return f"{self.photo}, {self.product_id}"
+        else:
+            return f"{self.url}, {self.product_id}"

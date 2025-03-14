@@ -26,7 +26,7 @@
         <h1 class="form-title" role="heading" aria-level="1">Editar {{ product.name }}</h1>
         <p class="form-description">Atualize as informações do produto abaixo</p>
     </header>
-
+   
     <form action="/admin/edit/{{ product.id }}" method="post" enctype="multipart/form-data" class="product-form"
           aria-labelledby="main-content">
         {% csrf_token %}
@@ -76,6 +76,18 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <div id="container_url">
+                    <div id="url-div">
+                        <label for="id_url">Url da WEB</label>
+                        <input name="image_url" class="form-input" id="id_url" type="text">
+                        <small class="form-help">Coloque uma URL de uma imagem da WEB</small>
+
+                    </div>
+                </div>
+                <button type="button" onclick="addMoreUrlLabel()">Adicionar mais Urls</button>
+                <button type="button" onclick="removeSubjacentUrl()">Remover URLS subjacentes</button>
+            </div>
         </fieldset>
 
         <!-- Seção de Imagens -->
@@ -85,12 +97,20 @@
             <div class="form-group">
                 <p class="form-label">Imagens Atuais</p>
                 <div class="current-images" role="list">
+
                     {% for image in images %}
                         <div class="image-card" role="listitem">
-                            <img src="{{ image.photo.url }}"
-                                 alt="Imagem do produto {{ product.name }}"
-                                 class="image-preview"
-                                 loading="lazy">
+                            {% if image.url == "" and image.photo.url %}
+                                <img src="{{ image.photo.url }}"
+                                     alt="Imagem do produto {{ product.name }}"
+                                     class="image-preview"
+                                     loading="lazy">
+                            {% else %}
+                                <img src="{{ image.url }}"
+                                     alt="Imagem do produto {{ product.name }}"
+                                     class="image-preview"
+                                     loading="lazy">
+                            {% endif %}
 
                             <button type="button"
                                     class="delete-btn"
@@ -141,6 +161,27 @@
 </main>
 
 <script>
+    function addMoreUrlLabel() {
+        const url_container = document.getElementById("container_url")
+        const url_div = document.getElementById("url-div").cloneNode(true);
+
+
+        url_container.appendChild(url_div);
+
+    }
+
+    function removeSubjacentUrl() {
+
+        const url_div = document.querySelectorAll("[id='url-div']")
+
+        if (url_div.length < 2) {
+            return;
+        }
+
+        url_div[url_div.length - 1].remove();
+
+    }
+
     // JavaScript permanece o mesmo, mas com comentários acessíveis
     document.getElementById('id_new_images').addEventListener('change', function (e) {
         const preview = document.querySelector('.file-preview');
@@ -158,6 +199,7 @@
             reader.readAsDataURL(file);
         });
     });
+
 
     document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', function () {

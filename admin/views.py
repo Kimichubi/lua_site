@@ -30,6 +30,7 @@ class FileFieldFormView(FormView):
         price = form.cleaned_data["price"]
         category = form.cleaned_data["category"]
         category = Category.objects.get(name=category)
+        url = self.request.POST.getlist("url")
 
         product = Product()
         product.name = title
@@ -38,11 +39,17 @@ class FileFieldFormView(FormView):
         product.category_id = category.id
         product.save()
 
+        for u in url:
+            image = Image()
+            image.photo = ""
+            image.url = u
+            image.product_id = product.id
+            image.save()
         for f in files:
             image = Image()
             image.photo = f
+            image.url = ""
             image.product_id = product.id
-            image.save()
 
         return super().form_valid(form)
 
@@ -80,7 +87,8 @@ def dashboard(request):
 
     if cleaned_count > 0:
         messages.warning(request, f"{cleaned_count} imagens inválidas foram removidas do banco de dados")
-    products = Product.objects.all().prefetch_related('images')
+        
+    products = Product.objects.all().prefetch_related("images")
     paginator = Paginator(products, 10)
 
     page_number = request.GET.get("page")
@@ -89,6 +97,7 @@ def dashboard(request):
         page_number = 1
 
     page_obj = paginator.get_page(page_number)
+
     return render(request, "admin/dashboard.html", {"page_obj": page_obj})
 
 
@@ -96,6 +105,7 @@ def dashboard(request):
 def product_edit(request, product_id):
     product = Product.objects.get(id=product_id)
     categories = Category.objects.all()
+    images = Image.objects.filter(product=product)
     if request.method == "POST":
 
         try:
@@ -105,7 +115,6 @@ def product_edit(request, product_id):
             category_name = request.POST.get("category", "").strip()
             category = Category.objects.get(name=category_name)
             product.category_id = category.id
-            print(product.description)
 
             # Converte o preço para Decimal
             price_str = request.POST.get("price", "0").strip()
@@ -119,25 +128,34 @@ def product_edit(request, product_id):
 
             # Lida com a exclusão de imagens
             delete_images = request.POST.getlist("delete_images")
+
             if delete_images:
                 Image.objects.filter(id__in=delete_images).delete()
 
             # Lida com o upload de novas imagens
             new_images = request.FILES.getlist("new_images")
-            for image_file in new_images:
-                Image.objects.create(product=product, photo=image_file)
+            url = request.POST.getlist("image_url")
+
+            if len(url) > 0 and url[0] != '':
+                for u in url:
+                    Image.objects.create(product=product, url=u, photo="")
+            if len(new_images) > 0:
+                for image_file in new_images:
+                    Image.objects.create(product=product, url="", photo=image_file)
 
             # Mensagem de sucesso
             messages.success(request, "Produto atualizado com sucesso!")
+
             return redirect('dashboard')
 
         except ValidationError as e:
-            messages.error(request, str(e))
+            messages.error(request, f"ValidationError : {e}")
+
         except Exception as e:
             messages.error(request, f"Ocorreu um erro ao atualizar o produto: {str(e)}")
 
         # Renderiza o template de edição
-    images = Image.objects.filter(product=product)
+
     return render(request, "admin/product_edit.html", {
         "product": product,
         "images": images,

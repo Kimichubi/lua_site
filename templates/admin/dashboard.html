@@ -32,10 +32,15 @@
 
     <section class="products-grid">
         {% for product in page_obj %}
+
             <article class="product-card">
                 <div class="product-image">
                     {% if product.images.first %}
-                        <img src="{{ product.images.first.photo.url }}" alt="{{ product.name }}" loading="lazy">
+                        {% if product.images.first.url == "" and product.images.first.photo.url %}
+                            <img src="{{ product.images.first.photo.url }}" alt="{{ product.name }}" loading="lazy">
+                        {% elif product.images.first.url %}
+                            <img src="{{ product.images.first.url }}" alt="{{ product.name }}" loading="lazy">
+                        {% endif %}
                     {% else %}
                         <img src="{% static 'images/placeholder-product.jpg' %}" alt="Sem imagem disponível"
                              loading="lazy">

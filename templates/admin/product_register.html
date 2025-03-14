@@ -54,6 +54,18 @@
                 {{ form.category }}
             </div>
         </div>
+        <div class="form-group">
+            <div id="container_url">
+                <div id="url-div">
+                    <label for="id_url">Url da WEB</label>
+                    {{ form.url }}
+                    <small class="form-help">Coloque uma URL de uma imagem da WEB</small>
+
+                </div>
+            </div>
+            <button type="button" onclick="addMoreUrlLabel()">Adicionar mais Urls</button>
+            <button type="button" onclick="removeSubjacentUrl()">Remover URLS subjacentes</button>
+        </div>
 
         <div class="form-group file-upload">
             <label for="id_file_field" class="upload-label">
@@ -101,6 +113,29 @@
     function closeModal() {
         document.getElementById('confirmationModal').style.display = 'none';
     }
+
+    function addMoreUrlLabel() {
+        const url_container = document.getElementById("container_url")
+        const url_div = document.getElementById("url-div").cloneNode(true);
+
+
+        url_container.appendChild(url_div);
+
+    }
+
+    function removeSubjacentUrl() {
+
+        const url_div = document.querySelectorAll("[id='url-div']")
+
+        if (url_div.length < 2) {
+            return;
+        }
+
+        url_div[url_div.length - 1].remove();
+
+
+    }
+
 
     // Preview de imagens selecionadas
     document.getElementById('id_file_field').addEventListener('change', function (e) {

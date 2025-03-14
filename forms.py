@@ -29,6 +29,7 @@ class FileFieldForm(forms.Form):
     desc = forms.CharField(label="Descrição", max_length=100)
     price = forms.IntegerField(label="Preço")
     category = forms.ModelChoiceField(label="Categoria", queryset=Category.objects.all())
+    url = forms.CharField(label="URL", max_length=300, widget=forms.TextInput(attrs={"id": "url_input"}))
     file_field = MultipleFileField()
 
 
